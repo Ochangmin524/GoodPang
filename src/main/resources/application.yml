@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/goodPang
+    username: "root"
+    password: "0000"
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 10
+  #        dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
+  data:
+    web:
+      pageable:
+        default-page-size : 9
+  tymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
+
+server:
+  servlet:
+    session:
+      persistent : false
+      timeout: 30m
+      tracking-modes: cookie
