@@ -1,4 +1,4 @@
-package GoodPang.goodPang.base;
+package GoodPang.goodPang.domain.base;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

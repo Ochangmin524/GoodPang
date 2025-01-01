@@ -1,6 +1,6 @@
 package GoodPang.goodPang.domain.images;
 
-import GoodPang.goodPang.base.BaseEntity;
+import GoodPang.goodPang.domain.base.BaseEntity;
 import GoodPang.goodPang.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class MemberImage extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "memberImage", fetch = FetchType.LAZY)
     private Member member;
 
 

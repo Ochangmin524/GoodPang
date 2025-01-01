@@ -1,6 +1,6 @@
 package GoodPang.goodPang.domain.cart;
 
-import GoodPang.goodPang.base.BaseEntity;
+import GoodPang.goodPang.domain.base.BaseEntity;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.domain.item.Item;
 import jakarta.persistence.*;

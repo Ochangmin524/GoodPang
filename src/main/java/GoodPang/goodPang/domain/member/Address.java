@@ -1,6 +1,5 @@
 package GoodPang.goodPang.domain.member;
 
-import GoodPang.goodPang.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

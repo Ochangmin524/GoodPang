@@ -1,6 +1,6 @@
 package GoodPang.goodPang.domain.order;
 
-import GoodPang.goodPang.base.BaseEntity;
+import GoodPang.goodPang.domain.base.BaseEntity;
 import GoodPang.goodPang.domain.enums.OrderStatus;
 import GoodPang.goodPang.domain.member.Member;
 import jakarta.persistence.*;
