@@ -49,4 +49,9 @@ public class Member extends BaseEntity {
         cart.setMember(this);
     }
 
+    public Member editMember(String name, Address address) {
+        this.name = name;
+        this.address = address;
+        return this;
+    }
 }

@@ -17,7 +17,11 @@ public class MemberConverter {
                 .build();
     }
 
-
+    //회원 수정 결과 생성
+    public static MemberResponseDto.editResultDTO toEditResultDTO(Member editMember) {
+        return MemberResponseDto.editResultDTO.builder()
+                .memberId(editMember.getId()).build();
+    }
 
 
     public static Member toMember(MemberRequestDto.JoinDto request) {
@@ -30,4 +34,6 @@ public class MemberConverter {
                 .orders(new ArrayList<>())
                 .build();
     }
+
+
 }

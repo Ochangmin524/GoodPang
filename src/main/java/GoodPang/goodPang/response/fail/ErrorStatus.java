@@ -14,7 +14,8 @@ public enum ErrorStatus implements BaseErrorCode{
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403","금지된 요청입니다."),
 
     //멤버 관련 에러
-    _DUPLICATED_LOGIN_ID(HttpStatus.BAD_REQUEST,"DUPMEM001" ,"이미 존재하는 로그인 아이디 입니다.");
+    _DUPLICATED_LOGIN_ID(HttpStatus.BAD_REQUEST,"MEM001" ,"이미 존재하는 로그인 아이디 입니다."),
+    _MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST,"MEM002" ,"존재하지 않는 회원입니다.");
 
 
     private final HttpStatus httpStatus;

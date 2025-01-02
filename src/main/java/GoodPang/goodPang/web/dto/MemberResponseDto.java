@@ -16,4 +16,13 @@ public class MemberResponseDto {
         Long memberId; //생성된 멤버의 아이디
         LocalDateTime createdAt; //멤버가 생성된 시점
     }
+
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class editResultDTO {
+        Long memberId;
+    }
 }

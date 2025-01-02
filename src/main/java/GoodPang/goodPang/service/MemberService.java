@@ -6,6 +6,7 @@ import GoodPang.goodPang.repository.MemberRepository;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.MemberRequestDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,19 @@ public class MemberService {
         }
         return true;
     }
+
+
+    //멤버 수정
+    //더티체킹으로 수정이므로, save 하지 않아도 된다.
+    @Transactional
+    public Member editMember(MemberRequestDto.EditDto request) {
+        //멤버 조회
+        Member findMember = memberRepository.findById(request.getId()).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+        //조회한 멤버 수정
+        Member editMember = findMember.editMember(request.getName(), request.getAddress());
+        return editMember;
+    }
+
+
 
 }

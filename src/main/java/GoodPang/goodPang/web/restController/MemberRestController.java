@@ -8,15 +8,13 @@ import GoodPang.goodPang.web.dto.MemberRequestDto;
 import GoodPang.goodPang.web.dto.MemberResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class MemberRestController {
     private final MemberService memberService;
+
     //회원가입
     @PostMapping("/members/signup")
     public ApiResponse<MemberResponseDto.joinResultDTO> signup(@RequestBody @Valid MemberRequestDto.JoinDto request) {
@@ -24,4 +22,10 @@ public class MemberRestController {
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTo(member));
     }
 
+    //회원 수정
+    @PatchMapping("/members/edit")
+    public ApiResponse<MemberResponseDto.editResultDTO> edit(@RequestBody @Valid MemberRequestDto.EditDto request) {
+        Member editMember = memberService.editMember(request);
+        return ApiResponse.onSuccess(MemberConverter.toEditResultDTO(editMember));
+    }
 }
