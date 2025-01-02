@@ -23,6 +23,7 @@ public class MemberService {
     private final CartRepository cartRepository;
 
     //멤버 회원 가입
+    @Transactional
     public Member joinMember(MemberRequestDto.JoinDto request) {
         //로그인 아이디 중복 여부
         if (isLoginIdDuplicated(request.getLoginId())) {
@@ -37,10 +38,9 @@ public class MemberService {
         //연관관계 매핑
         member.setCart(cart);
 
-        memberRepository.save(member);
         cartRepository.save(cart);
-        // 멤버 저장 후 반환
-        return member;
+        return memberRepository.save(member);
+
     }
     //로그인 아이디 중복 여부 확인
     //중복되면 true 반환
