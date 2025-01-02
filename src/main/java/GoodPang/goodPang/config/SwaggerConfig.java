@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration //설정 정보 명시 에노테이션
 
 public class SwaggerConfig {
+
     @Bean
     public OpenAPI GOODPANGAPI() {
 
