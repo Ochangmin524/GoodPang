@@ -17,7 +17,6 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-
     //멤버 회원 가입
     public Member joinMember(MemberRequestDto.JoinDto request) {
         //로그인 아이디 중복 여부
