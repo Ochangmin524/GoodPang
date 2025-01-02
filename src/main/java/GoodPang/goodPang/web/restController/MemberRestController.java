@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberRestController {
     private final MemberService memberService;
 
+
     //회원가입
     @PostMapping("/members/signup")
     public ApiResponse<MemberResponseDto.joinResultDTO> signup(@RequestBody @Valid MemberRequestDto.JoinDto request) {
