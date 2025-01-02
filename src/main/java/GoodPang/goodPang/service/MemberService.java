@@ -1,7 +1,10 @@
 package GoodPang.goodPang.service;
 
+import GoodPang.goodPang.converter.CartConverter;
 import GoodPang.goodPang.converter.MemberConverter;
+import GoodPang.goodPang.domain.cart.Cart;
 import GoodPang.goodPang.domain.member.Member;
+import GoodPang.goodPang.repository.CartRepository;
 import GoodPang.goodPang.repository.MemberRepository;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
@@ -17,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-
+    private final CartRepository cartRepository;
 
     //멤버 회원 가입
     public Member joinMember(MemberRequestDto.JoinDto request) {
@@ -27,7 +30,17 @@ public class MemberService {
         }
         //멤버 생성
         Member member = MemberConverter.toMember(request);
-        return memberRepository.save(member); //저장
+
+        //장바구니 생성
+        Cart cart = CartConverter.toCart(member);
+
+        //연관관계 매핑
+        member.setCart(cart);
+
+        memberRepository.save(member);
+        cartRepository.save(cart);
+        // 멤버 저장 후 반환
+        return member;
     }
     //로그인 아이디 중복 여부 확인
     //중복되면 true 반환
