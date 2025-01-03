@@ -12,7 +12,7 @@ public class MemberResponseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     //회원 가입 완료 후, 보내줄것.
-    public static class joinResultDTO {
+    public static class JoinResultDTO {
         Long memberId; //생성된 멤버의 아이디
         LocalDateTime createdAt; //멤버가 생성된 시점
     }
@@ -22,7 +22,7 @@ public class MemberResponseDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class editResultDTO {
+    public static class EditResultDTO {
         Long memberId;
     }
 }
