@@ -15,9 +15,11 @@ public enum ErrorStatus implements BaseErrorCode{
 
     //멤버 관련 에러
     _DUPLICATED_LOGIN_ID(HttpStatus.BAD_REQUEST,"MEM001" ,"이미 존재하는 로그인 아이디 입니다."),
-    _MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST,"MEM002" ,"존재하지 않는 회원입니다.");
+    _MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST,"MEM002" ,"존재하지 않는 회원입니다."),
 
-
+    //상품 관련 예러
+    _CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "ITEM001", "존재하지 않는 카테고리입니다."),
+    _ITEM_NOT_FOUND(HttpStatus.BAD_REQUEST, "ITEM002", "존재하지 않는 상품입니다.");
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;

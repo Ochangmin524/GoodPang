@@ -10,16 +10,16 @@ import java.util.ArrayList;
 public class MemberConverter {
 
     //회원가입 결과 생성
-    public static MemberResponseDto.joinResultDTO toJoinResultDTo(Member member) {
-        return MemberResponseDto.joinResultDTO.builder()
+    public static MemberResponseDto.JoinResultDTO toJoinResultDTo(Member member) {
+        return MemberResponseDto.JoinResultDTO.builder()
                 .memberId(member.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
 
     //회원 수정 결과 생성
-    public static MemberResponseDto.editResultDTO toEditResultDTO(Member editMember) {
-        return MemberResponseDto.editResultDTO.builder()
+    public static MemberResponseDto.EditResultDTO toEditResultDTO(Member editMember) {
+        return MemberResponseDto.EditResultDTO.builder()
                 .memberId(editMember.getId()).build();
     }
 

@@ -18,7 +18,7 @@ public class MemberRestController {
 
     //회원가입
     @PostMapping("/members/signup")
-    public ApiResponse<MemberResponseDto.joinResultDTO> signup(@RequestBody @Valid MemberRequestDto.JoinDto request) {
+    public ApiResponse<MemberResponseDto.JoinResultDTO> signup(@RequestBody @Valid MemberRequestDto.JoinDto request) {
         Member member = memberService.joinMember(request); //회원가입
         //카트 생성 및 멤버 할당
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTo(member));
@@ -26,7 +26,7 @@ public class MemberRestController {
 
     //회원 수정
     @PatchMapping("/members/edit")
-    public ApiResponse<MemberResponseDto.editResultDTO> edit(@RequestBody @Valid MemberRequestDto.EditDto request) {
+    public ApiResponse<MemberResponseDto.EditResultDTO> edit(@RequestBody @Valid MemberRequestDto.EditDto request) {
         Member editMember = memberService.editMember(request);
         return ApiResponse.onSuccess(MemberConverter.toEditResultDTO(editMember));
     }

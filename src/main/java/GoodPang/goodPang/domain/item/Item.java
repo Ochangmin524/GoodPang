@@ -8,16 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,7 @@ public class Item extends BaseEntity {
 
     private int likes = 0; // 좋아요 수
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     private String information; // 상품 설명
