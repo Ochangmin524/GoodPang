@@ -19,8 +19,6 @@ public class CartItem extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
@@ -30,5 +28,10 @@ public class CartItem extends BaseEntity {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    private Integer count;
+    private Integer count; //상품 개수
+
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class ItemConverter {
 
-    public static ItemResponseDto.AddResultDTO toAddResultDTO(Item item) {
-        return ItemResponseDto.AddResultDTO.builder()
+    public static ItemResponseDto.AddResultDto toAddResultDTO(Item item) {
+        return ItemResponseDto.AddResultDto.builder()
                 .itemID(item.getId())
                 .build();
     }

@@ -18,7 +18,7 @@ public class ItemRestController {
     private final ItemService itemService;
 
     @PostMapping("/items/additem")
-    public ApiResponse<ItemResponseDto.AddResultDTO> addItem(@RequestBody @Valid ItemRequestDto.AddItemDto request) {
+    public ApiResponse<ItemResponseDto.AddResultDto> addItem(@RequestBody @Valid ItemRequestDto.AddItemDto request) {
         Item item = itemService.addItem(request);
         return ApiResponse.onSuccess(ItemConverter.toAddResultDTO(item));
     }

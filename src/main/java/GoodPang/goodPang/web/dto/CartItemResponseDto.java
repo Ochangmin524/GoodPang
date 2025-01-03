@@ -5,15 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class ItemResponseDto {
+public class CartItemResponseDto {
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    //생성된 상품의 id 반환
+    //생성된 장바구니 상품의 id 반환
     public static class AddResultDto {
-        Long itemID;
+        Long cartItemID;
     }
-
-
 }
