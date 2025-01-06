@@ -39,4 +39,7 @@ public class Item extends BaseEntity {
     @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
     private List<ItemImage> imageFiles;//등록과 저장된 이미지 파일
 
+    public void removeCount(int count) {
+        this.stockQuantity -= count;
+    }
 }
