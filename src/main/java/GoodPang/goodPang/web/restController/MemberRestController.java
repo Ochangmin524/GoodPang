@@ -29,4 +29,12 @@ public class MemberRestController {
         Member editMember = memberService.editMember(request);
         return ApiResponse.onSuccess(MemberConverter.toEditResultDTO(editMember));
     }
+
+    //회원 조회
+    @GetMapping("/members")
+    public ApiResponse<MemberResponseDto.GetMemberResultDTO> getMember(MemberRequestDto.GetMemberDto request) {
+        Member member = memberService.getMember(request.getId());
+        return ApiResponse.onSuccess(MemberConverter.toGetMemberResponseDto(member));
+    }
+
 }

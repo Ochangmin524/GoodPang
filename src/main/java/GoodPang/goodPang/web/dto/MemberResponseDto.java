@@ -25,4 +25,16 @@ public class MemberResponseDto {
     public static class EditResultDTO {
         Long memberId;
     }
+
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetMemberResultDTO {
+        Long memberId;
+        String memberName;
+        String loginId;
+        Address address;
+    }
 }
