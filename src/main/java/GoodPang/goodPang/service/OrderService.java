@@ -39,7 +39,7 @@ public class OrderService {
         //멤버 조회
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
 
-//        //order 생성
+        //order 생성
         Orders order = OrderConverter.toOrder(member);
         //장바구니 상품 조회 및 제고 비교
         for (Long cartItemId : request.getCartItemId()) {

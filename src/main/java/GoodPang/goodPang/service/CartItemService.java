@@ -43,7 +43,7 @@ public class CartItemService {
                 if ( cartItem.getCount() + request.getCount() > item.getStockQuantity()) {
                     throw new CartHandler(ErrorStatus._OVER_ITEM_STOCK);
                 } else {
-                    cartItem.addCount(request.getCount());
+                    cartItem.addCount(request.getCount()); //더티 체킹으로 자동 반영
                 }
                 return cartItem;
             }
