@@ -10,4 +10,10 @@ public class LikedItemRequestDto {
         Long memberId;
         Long itemId;
     }
+    @Getter
+    @Setter
+    public static class CancelLikedItem{
+        Long memberId;
+        Long likedItemId;
+    }
 }

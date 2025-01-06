@@ -45,4 +45,5 @@ public class Item extends BaseEntity {
     public void addLikes(int count) {
         this.likes += count;
     }
+    public void minusLikes(int count) {this.likes -= count;}
 }

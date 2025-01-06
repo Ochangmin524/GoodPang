@@ -13,6 +13,10 @@ public class LikedItemConverter {
                 .build();
     }
 
+    public static LikedItemResponseDto.CancelLikedItemResultDto toCancelLikedItemResultDto(Long likedItemId) {
+        return LikedItemResponseDto.CancelLikedItemResultDto.builder()
+                .likedItemID(likedItemId).build();
+    }
     public static LikedItem toLikedItem(Member member, Item item) {
         return LikedItem.builder()
                 .member(member)
