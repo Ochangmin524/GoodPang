@@ -42,4 +42,7 @@ public class Item extends BaseEntity {
     public void removeCount(int count) {
         this.stockQuantity -= count;
     }
+    public void addLikes(int count) {
+        this.likes += count;
+    }
 }
