@@ -69,4 +69,9 @@ public class MemberService {
     public Member getMember(Long loginId) {
         return   memberRepository.findById(loginId).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
     }
+
+    @Transactional(readOnly = true)
+    public List<Member> getMembers() {
+        return memberRepository.findAll();
+    }
 }

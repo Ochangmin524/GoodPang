@@ -4,6 +4,7 @@ import GoodPang.goodPang.domain.member.Address;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MemberResponseDto {
 
@@ -36,5 +37,14 @@ public class MemberResponseDto {
         String memberName;
         String loginId;
         Address address;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetAllMemberResultDTO {
+        Long numOfMembers;
+        List<GetMemberResultDTO> members;
     }
 }
