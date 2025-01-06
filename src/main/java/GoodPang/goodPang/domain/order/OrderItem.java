@@ -32,4 +32,8 @@ public class OrderItem extends BaseEntity {
     private Integer orderPrice; // 주문 가격
 
     private Integer count; //주문 수량
+
+    public void setOrders(Orders orders) {
+        this.order = orders;
+    }
 }

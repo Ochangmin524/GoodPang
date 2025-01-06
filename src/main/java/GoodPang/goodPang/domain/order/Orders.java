@@ -42,4 +42,14 @@ public class Orders extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [ORDER,CANCEL]
+
+
+    public void addOrderItems(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setOrders(this);
+    }
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrders(this);
+    }
 }

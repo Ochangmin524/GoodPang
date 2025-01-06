@@ -27,4 +27,8 @@ public class Delivery extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
 }
