@@ -6,8 +6,24 @@ import GoodPang.goodPang.web.dto.MemberResponseDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MemberConverter {
+    //모든 회원 조회 결과 생성
+    public static MemberResponseDto.GetAllMemberResultDTO togetAllMemberResultDTO(List<Member> members) {
+        return MemberResponseDto.GetAllMemberResultDTO.builder()
+                .numOfMembers((long) members.size())
+                .members(toMemberListDto(members))
+                .build();
+
+    }
+
+    private static List<MemberResponseDto.GetMemberResultDTO> toMemberListDto(List<Member> members) {
+        return members.stream().map(MemberConverter::toGetMemberResponseDto).collect(Collectors.toList());
+    }
+
+
     //회원 조회 결과 생성
     public static MemberResponseDto.GetMemberResultDTO toGetMemberResponseDto(Member member) {
         return MemberResponseDto.GetMemberResultDTO.builder()

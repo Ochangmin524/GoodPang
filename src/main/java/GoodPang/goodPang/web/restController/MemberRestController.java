@@ -31,10 +31,14 @@ public class MemberRestController {
     }
 
     //회원 조회
-    @GetMapping("/members")
-    public ApiResponse<MemberResponseDto.GetMemberResultDTO> getMember(MemberRequestDto.GetMemberDto request) {
-        Member member = memberService.getMember(request.getId());
+    @GetMapping("/members/{memberId}")
+    public ApiResponse<MemberResponseDto.GetMemberResultDTO> getMember(@PathVariable("memberId") Long memberId) {
+        Member member = memberService.getMember(memberId);
         return ApiResponse.onSuccess(MemberConverter.toGetMemberResponseDto(member));
     }
-
+    //모든 회원 목록 조회
+    @GetMapping("/members/all")
+    public ApiResponse<MemberResponseDto.GetAllMemberResultDTO> getAllMember() {
+        return ApiResponse.onSuccess(MemberConverter.togetAllMemberResultDTO(memberService.getMembers()));
+    }
 }
