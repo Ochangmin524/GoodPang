@@ -14,4 +14,13 @@ public class LikedItemResponseDto {
     public static class AddLikedItemResultDto {
         Long likedItemID;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    //삭제된 장바구니 상품의 id 반환
+    public static class CancelLikedItemResultDto {
+        Long likedItemID;
+    }
 }
