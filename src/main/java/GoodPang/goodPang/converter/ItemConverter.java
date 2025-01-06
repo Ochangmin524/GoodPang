@@ -18,7 +18,17 @@ public class ItemConverter {
                 .build();
     }
 
-
+    public static ItemResponseDto.GetItemDto toGetItemDTO(Item item) {
+        return ItemResponseDto.GetItemDto.builder()
+                .price(item.getPrice())
+                .likes(item.getLikes())
+                .category(item.getCategory())
+                .information(item.getInformation())
+                .stockQuantity(item.getStockQuantity())
+                .itemID(item.getId())
+                .name(item.getName())
+                .build();
+    }
 
 
 
