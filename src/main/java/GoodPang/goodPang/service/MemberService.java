@@ -9,9 +9,9 @@ import GoodPang.goodPang.repository.MemberRepository;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.MemberRequestDto;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +42,7 @@ public class MemberService {
         return memberRepository.save(member);
 
     }
+
     //로그인 아이디 중복 여부 확인
     //중복되면 true 반환
     private boolean isLoginIdDuplicated(String loginId) {
@@ -64,6 +65,8 @@ public class MemberService {
         return editMember;
     }
 
-
-
+    @Transactional(readOnly = true)
+    public Member getMember(Long loginId) {
+        return   memberRepository.findById(loginId).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+    }
 }

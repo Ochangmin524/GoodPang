@@ -25,4 +25,11 @@ public class MemberRequestDto {
         String name;
         Address address;
     }
+
+
+    @Getter
+    @Setter
+    public static class GetMemberDto {
+        Long id;
+    }
 }

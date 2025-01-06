@@ -8,6 +8,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MemberConverter {
+    //회원 조회 결과 생성
+    public static MemberResponseDto.GetMemberResultDTO toGetMemberResponseDto(Member member) {
+        return MemberResponseDto.GetMemberResultDTO.builder()
+                .memberName(member.getName())
+                .address(member.getAddress())
+                .memberId(member.getId())
+                .loginId(member.getLoginId())
+                .build();
+    }
+
+
 
     //회원가입 결과 생성
     public static MemberResponseDto.JoinResultDTO toJoinResultDTo(Member member) {
