@@ -54,4 +54,7 @@ public class Member extends BaseEntity {
         this.address = address;
         return this;
     }
+    public void addLikedItem(LikedItem likedItem) {
+        this.likedItems.add(likedItem);
+    }
 }
