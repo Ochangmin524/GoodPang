@@ -9,6 +9,8 @@ import GoodPang.goodPang.web.dto.ItemRequestDto;
 import GoodPang.goodPang.web.dto.ItemResponseDto;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemConverter {
 
@@ -16,6 +18,18 @@ public class ItemConverter {
         return ItemResponseDto.AddResultDto.builder()
                 .itemID(item.getId())
                 .build();
+    }
+
+
+    public static ItemResponseDto.GetAllItemResultDto toGetAllItemResultDTO(List<Item> itemList) {
+        return ItemResponseDto.GetAllItemResultDto.builder()
+                .numOfItems((long) itemList.size())
+                .items(toItemListDto(itemList))
+                .build();
+    }
+
+    private static List<ItemResponseDto.GetItemDto> toItemListDto(List<Item> itemList) {
+        return itemList.stream().map(ItemConverter::toGetItemDTO).collect(Collectors.toList());
     }
 
     public static ItemResponseDto.GetItemDto toGetItemDTO(Item item) {
@@ -29,9 +43,6 @@ public class ItemConverter {
                 .name(item.getName())
                 .build();
     }
-
-
-
 
 
     public static Item toItem(ItemRequestDto.AddItemDto request) {
@@ -74,8 +85,7 @@ public class ItemConverter {
                     .isbn(request.getIsbn())
                     .build();
         }
-
-        return null;
+            else return null;
     }
 
 }

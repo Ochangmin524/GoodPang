@@ -26,4 +26,9 @@ public class ItemRestController {
     public ApiResponse<ItemResponseDto.GetItemDto> getItem(@PathVariable("itemId") Long itemId) {
         return ApiResponse.onSuccess(ItemConverter.toGetItemDTO(itemService.getItem(itemId)));
     }
+
+    @GetMapping("/items/all")
+    public ApiResponse<ItemResponseDto.GetAllItemResultDto> getAllItems() {
+        return ApiResponse.onSuccess(ItemConverter.toGetAllItemResultDTO(itemService.getAllItems()));
+    }
 }
