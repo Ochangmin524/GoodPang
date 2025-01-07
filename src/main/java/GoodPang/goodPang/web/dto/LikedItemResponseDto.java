@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 public class LikedItemResponseDto {
     @Builder
     @Getter
@@ -23,4 +25,24 @@ public class LikedItemResponseDto {
     public static class CancelLikedItemResultDto {
         Long likedItemID;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    //좋아요 상품 조회 결과
+    public static class GetLikedItemResultDto {
+        Integer numOfLikedItems;
+        List<LikedItemDTO> likedItems;
+    }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LikedItemDTO {
+        Long likedItemID;
+        String name;
+    }
+
+
 }

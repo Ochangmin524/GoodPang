@@ -5,7 +5,29 @@ import GoodPang.goodPang.domain.item.LikedItem;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.web.dto.LikedItemResponseDto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LikedItemConverter {
+
+    public static LikedItemResponseDto.GetLikedItemResultDto getLikedItemResultDto(List<LikedItem> items) {
+        return LikedItemResponseDto.GetLikedItemResultDto.builder()
+                .numOfLikedItems(items.size())
+                .likedItems(toLikedItemListDTO(items))
+                .build();
+
+    }
+
+    private static List<LikedItemResponseDto.LikedItemDTO> toLikedItemListDTO(List<LikedItem> items) {
+        return items.stream().map(LikedItemConverter::toLikedItemDTO).collect(Collectors.toList());
+    }
+
+    private static LikedItemResponseDto.LikedItemDTO toLikedItemDTO(LikedItem item) {
+        return LikedItemResponseDto.LikedItemDTO.builder()
+                .likedItemID(item.getId())
+                .name(item.getItem().getName())
+                .build();
+    }
 
     public static LikedItemResponseDto.AddLikedItemResultDto toAddLikedItemResultDto(LikedItem likedItem) {
         return LikedItemResponseDto.AddLikedItemResultDto.builder()

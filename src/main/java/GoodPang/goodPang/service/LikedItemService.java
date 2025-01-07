@@ -12,9 +12,11 @@ import GoodPang.goodPang.response.exception.handler.LikedItemHandler;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.LikedItemRequestDto;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +49,11 @@ public class LikedItemService {
         member.getLikedItems().remove(likedItem); // 자동으로 지워지려나..?
         return likedItem.getId();
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<LikedItem> getLikedItemListByMemberId(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+        return likedItemRepository.findAllByMember(member);
     }
 }

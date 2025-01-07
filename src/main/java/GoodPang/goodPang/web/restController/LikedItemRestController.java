@@ -7,9 +7,9 @@ import GoodPang.goodPang.service.LikedItemService;
 import GoodPang.goodPang.web.dto.LikedItemRequestDto;
 import GoodPang.goodPang.web.dto.LikedItemResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +27,10 @@ public class LikedItemRestController {
         Long cancelLikedItemId = likedItemService.cancelLikedItem(request);
         return ApiResponse.onSuccess(LikedItemConverter.toCancelLikedItemResultDto(cancelLikedItemId));
 
+    }
+
+    @GetMapping("/likedItems/{memberId}")
+    public ApiResponse<LikedItemResponseDto.GetLikedItemResultDto> getLikedItem(@PathVariable("memberId") Long memberId) {
+        return ApiResponse.onSuccess(LikedItemConverter.getLikedItemResultDto(likedItemService.getLikedItemListByMemberId(memberId)));
     }
 }
