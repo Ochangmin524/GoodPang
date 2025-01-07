@@ -2,5 +2,5 @@ package GoodPang.goodPang.domain.enums;
 
 
 public enum Category {
-    BOOK, ALBUM, MOVIE
+    BOOK, ALBUM, MOVIE, ETC
 }

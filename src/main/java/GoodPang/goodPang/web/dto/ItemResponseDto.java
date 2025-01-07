@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 public class ItemResponseDto {
     @Builder
     @Getter
@@ -15,6 +17,16 @@ public class ItemResponseDto {
     public static class AddResultDto {
         Long itemID;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetAllItemResultDto {
+        Long numOfItems;
+        List<GetItemDto> items;
+    }
+
 
     @Builder
     @Getter
