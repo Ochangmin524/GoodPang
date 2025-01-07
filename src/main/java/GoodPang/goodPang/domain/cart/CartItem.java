@@ -20,7 +20,7 @@ public class CartItem extends BaseEntity {
     private long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE)
     @JoinColumn(name = "item_id")
     private Item item; // 배송 상품
 

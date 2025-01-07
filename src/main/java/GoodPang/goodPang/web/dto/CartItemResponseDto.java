@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 public class CartItemResponseDto {
     @Builder
     @Getter
@@ -13,5 +15,27 @@ public class CartItemResponseDto {
     //생성된 장바구니 상품의 id 반환
     public static class AddResultDto {
         Long cartItemID;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetCartItemResultDto {
+        Integer numOfCartItems;
+        List<CartItemDto> cartItems;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CartItemDto {
+        Long cartItemId;
+        Long itemId;
+        String itemName;
+        Integer price;
+        Integer quantity;
+
     }
 }
