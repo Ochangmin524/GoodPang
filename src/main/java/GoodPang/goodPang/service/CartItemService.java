@@ -14,9 +14,11 @@ import GoodPang.goodPang.response.exception.handler.ItemHandler;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.CartItemRequestDto;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -38,9 +40,9 @@ public class CartItemService {
         Boolean isExist = false;
 
         for (CartItem cartItem : cart.getCarts()) {
-            if(cartItem.getItem() == item) {
+            if (cartItem.getItem() == item) {
                 isExist = true;
-                if ( cartItem.getCount() + request.getCount() > item.getStockQuantity()) {
+                if (cartItem.getCount() + request.getCount() > item.getStockQuantity()) {
                     throw new CartHandler(ErrorStatus._OVER_ITEM_STOCK);
                 } else {
                     cartItem.addCount(request.getCount()); //더티 체킹으로 자동 반영
@@ -66,5 +68,9 @@ public class CartItemService {
         return null;
     }
 
-
+    @Transactional(readOnly = true)
+    public List<CartItem> findCartItemByMemberId(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+        return member.getCart().getCarts();
+    }
 }

@@ -5,8 +5,33 @@ import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.web.dto.CartItemRequestDto;
 import GoodPang.goodPang.web.dto.CartItemResponseDto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class CartItemConverter {
+
+    public static CartItemResponseDto.GetCartItemResultDto getCartItemResultDto(List<CartItem> cartItemList) {
+        return CartItemResponseDto.GetCartItemResultDto
+                .builder()
+                .numOfCartItems(cartItemList.size())
+                .cartItems(toCartItemList(cartItemList))
+                .build();
+    }
+
+    private static List<CartItemResponseDto.CartItemDto> toCartItemList(List<CartItem> cartItemList) {
+        return cartItemList.stream().map(CartItemConverter::toCartItemDto).collect(Collectors.toList());
+    }
+
+    private static CartItemResponseDto.CartItemDto toCartItemDto(CartItem cartItem) {
+        return CartItemResponseDto.CartItemDto.builder()
+                .cartItemId(cartItem.getId())
+                .itemId(cartItem.getItem().getId())
+                .price(cartItem.getItem().getPrice())
+                .quantity(cartItem.getCount())
+                .itemName(cartItem.getItem().getName())
+                .build();
+    }
 
     public static CartItemResponseDto.AddResultDto toAddCartItemResult(CartItem cartItem) {
         return CartItemResponseDto.AddResultDto.builder()
