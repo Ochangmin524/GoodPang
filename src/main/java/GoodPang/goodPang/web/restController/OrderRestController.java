@@ -25,9 +25,10 @@ public class OrderRestController {
         return ApiResponse.onSuccess(OrderConverter.toCreateOrderResponseDto(order));
     }
 
-    @PatchMapping("/orders/cancel/{orderId}")
-    public ApiResponse<OrderResponseDto.cancelOrderResultDto> cancelOrder(@RequestBody @Valid OrderRequestDto.cancelOrderDto request) {
-        return ApiResponse.onSuccess(OrderConverter.toCancelOrderResultDto(orderService.cancelOrder(request)));
+
+    @PatchMapping("/orders")
+    public ApiResponse<OrderResponseDto.toOrderResultDto> cancelOrder(@RequestBody @Valid OrderRequestDto.changeOrderDto request) {
+        return ApiResponse.onSuccess(OrderConverter.toChangeOrderResultDto(orderService.changeOrder(request)));
     }
 
 }

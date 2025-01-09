@@ -11,6 +11,15 @@ public class OrderResponseDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class toOrderResultDto {
+        Long orderId;
+        OrderStatus status;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class createOrderResultDto {
         Long orderId; //생성된 주문의 아이디
     }
@@ -19,7 +28,7 @@ public class OrderResponseDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class cancelOrderResultDto {
+    public static class toChangeOrderResultDto {
         Long orderId;
         OrderStatus status;
 

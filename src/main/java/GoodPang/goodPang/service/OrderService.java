@@ -79,12 +79,14 @@ public class OrderService {
     }
 
     @Transactional
-    public Orders cancelOrder(OrderRequestDto.cancelOrderDto request) {
+    public Orders changeOrder(OrderRequestDto.changeOrderDto request) {
         Long orderId = request.getOrderId();
         Orders order = orderRepository.findById(orderId).orElseThrow(() -> new OrderHandler(ErrorStatus._ORDER_NOT_FOUND));
-        order.cancelOrder(); //더티 체킹
+        order.changeOrderStatus(request.getOrderStatus()); //더티 체킹
         return order;
     }
+
+
 
 
 
