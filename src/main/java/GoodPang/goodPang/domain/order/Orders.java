@@ -44,6 +44,10 @@ public class Orders extends BaseEntity {
     private OrderStatus status; // 주문상태 [ORDER,CANCEL]
 
 
+    public void cancelOrder() {
+        this.status = OrderStatus.CANCEL;
+    }
+
     public void addOrderItems(OrderItem orderItem) {
         this.orderItems.add(orderItem);
         orderItem.setOrders(this);

@@ -14,6 +14,7 @@ import GoodPang.goodPang.repository.*;
 import GoodPang.goodPang.response.exception.handler.CartHandler;
 import GoodPang.goodPang.response.exception.handler.ItemHandler;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
+import GoodPang.goodPang.response.exception.handler.OrderHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.OrderRequestDto;
 import jakarta.transaction.Transactional;
@@ -76,5 +77,16 @@ public class OrderService {
 
         //order item 저장
     }
+
+    @Transactional
+    public Orders cancelOrder(OrderRequestDto.cancelOrderDto request) {
+        Long orderId = request.getOrderId();
+        Orders order = orderRepository.findById(orderId).orElseThrow(() -> new OrderHandler(ErrorStatus._ORDER_NOT_FOUND));
+        order.cancelOrder(); //더티 체킹
+        return order;
+    }
+
+
+
 }
 

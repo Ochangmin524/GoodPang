@@ -15,4 +15,11 @@ public class OrderRequestDto {
         List<Long> cartItemId;//결제할 장바구니 상품 아이디
         Address address; //배송 정보
     }
+
+    @Getter
+    @Setter
+    public static class cancelOrderDto{
+        Long orderId;
+    }
+
 }
