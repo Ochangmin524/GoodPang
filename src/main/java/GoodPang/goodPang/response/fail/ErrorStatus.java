@@ -25,6 +25,9 @@ public enum ErrorStatus implements BaseErrorCode{
     //좋아요 관련 에러
     _LIKED_ITEM_NOT_FOUND(HttpStatus.BAD_REQUEST, "LIKE001" , "멤버의 좋아요 목록에 존재하지 않습니다."),
 
+    //주문 관련 에러
+    _ORDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "ORDER001", "존재하지 않는 주문입니다."),
+
     //장바구니 관련 에러
     _CART_ITEM_NOT_FOUND(HttpStatus.BAD_REQUEST, "CART_ITEM001", "장바구니에 존재하지 않습니다."),
     _OVER_ITEM_STOCK(HttpStatus.BAD_REQUEST,"CART_ITEM_002", "상품 제고보다 많은 수량입니다.");
