@@ -29,8 +29,6 @@ public class CartItem extends BaseEntity {
     private Cart cart;
 
     private Integer count; //상품 개수
-
-
     public void setCart(Cart cart) {
         this.cart = cart;
     }

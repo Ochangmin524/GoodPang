@@ -39,7 +39,8 @@ public class Member extends BaseEntity {
     private String loginId;
     private String password;
 
-    @OneToMany(mappedBy = "member")
+    //cascade로, member가 지워지면 자동으로 삭제, orphan으로 like리스트에서 사라지면 자동으로 db에서 like 삭제
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LikedItem> likedItems = new ArrayList<>();
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Orders> orders = new ArrayList<>();

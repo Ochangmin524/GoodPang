@@ -9,6 +9,12 @@ public class ItemRequestDto {
 
     @Getter
     @Setter
+    public static class DeleteItemDto {
+        Long itemId;
+    }
+
+    @Getter
+    @Setter
     public static class AddItemDto {
         String name;
         int price;
