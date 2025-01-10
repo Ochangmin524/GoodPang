@@ -8,10 +8,7 @@ import GoodPang.goodPang.web.dto.OrderRequestDto;
 import GoodPang.goodPang.web.dto.OrderResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +26,12 @@ public class OrderRestController {
     @PatchMapping("/orders")
     public ApiResponse<OrderResponseDto.toOrderResultDto> cancelOrder(@RequestBody @Valid OrderRequestDto.changeOrderDto request) {
         return ApiResponse.onSuccess(OrderConverter.toChangeOrderResultDto(orderService.changeOrder(request)));
+    }
+
+    @GetMapping("/orders/{orderId}")
+    public ApiResponse<OrderResponseDto.getOrderDto> getOrder(@PathVariable("orderId") Long orderId) {
+        Orders order = orderService.getOrder(orderId);
+        return ApiResponse.onSuccess(OrderConverter.toGetOrderDto(order));
     }
 
 }

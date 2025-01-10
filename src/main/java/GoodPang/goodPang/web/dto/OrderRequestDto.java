@@ -2,6 +2,7 @@ package GoodPang.goodPang.web.dto;
 
 import GoodPang.goodPang.domain.enums.OrderStatus;
 import GoodPang.goodPang.domain.member.Address;
+import GoodPang.goodPang.domain.order.Delivery;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,11 +18,7 @@ public class OrderRequestDto {
         Address address; //배송 정보
     }
 
-    @Getter
-    @Setter
-    public static class cancelOrderDto{
-        Long orderId;
-    }
+
 
     @Getter
     @Setter
@@ -29,5 +26,7 @@ public class OrderRequestDto {
         Long orderId;
         OrderStatus orderStatus;
     }
+
+
 
 }
