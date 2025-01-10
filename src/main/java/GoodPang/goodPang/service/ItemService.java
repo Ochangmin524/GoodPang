@@ -53,6 +53,7 @@ public class ItemService {
         });
 
 
+
         //아이템 삭제
         itemRepository.deleteById(itemId);
 
