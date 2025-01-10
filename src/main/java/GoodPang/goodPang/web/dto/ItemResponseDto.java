@@ -17,6 +17,14 @@ public class ItemResponseDto {
     public static class AddResultDto {
         Long itemID;
     }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    //생성된 상품의 id 반환
+    public static class DeleteResultDto {
+        Long itemID;
+    }
 
     @Builder
     @Getter

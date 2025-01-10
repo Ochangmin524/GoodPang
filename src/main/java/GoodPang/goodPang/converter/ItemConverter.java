@@ -14,6 +14,12 @@ import java.util.stream.Collectors;
 
 public class ItemConverter {
 
+    public static ItemResponseDto.DeleteResultDto toDeleteResultDto(Long itemId) {
+        return ItemResponseDto.DeleteResultDto.builder()
+                .itemID(itemId)
+                .build();
+    }
+
     public static ItemResponseDto.AddResultDto toAddResultDTO(Item item) {
         return ItemResponseDto.AddResultDto.builder()
                 .itemID(item.getId())

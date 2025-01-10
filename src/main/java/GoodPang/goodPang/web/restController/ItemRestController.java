@@ -31,4 +31,9 @@ public class ItemRestController {
     public ApiResponse<ItemResponseDto.GetAllItemResultDto> getAllItems() {
         return ApiResponse.onSuccess(ItemConverter.toGetAllItemResultDTO(itemService.getAllItems()));
     }
+
+    @DeleteMapping("/items/delete")
+    public ApiResponse<ItemResponseDto.DeleteResultDto> deleteItem(@RequestBody @Valid ItemRequestDto.DeleteItemDto request) {
+        return ApiResponse.onSuccess(ItemConverter.toDeleteResultDto(itemService.deleteItem(request.getItemId())));
+    }
 }
