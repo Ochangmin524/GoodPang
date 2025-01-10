@@ -3,8 +3,6 @@ package GoodPang.goodPang.service;
 import GoodPang.goodPang.converter.DeliveryConverter;
 import GoodPang.goodPang.converter.OrderConverter;
 import GoodPang.goodPang.domain.cart.CartItem;
-import GoodPang.goodPang.domain.enums.DeliveryStatus;
-import GoodPang.goodPang.domain.enums.OrderStatus;
 import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.domain.order.Delivery;
@@ -17,12 +15,11 @@ import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.exception.handler.OrderHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.OrderRequestDto;
-import jakarta.transaction.Transactional;
+import GoodPang.goodPang.web.dto.OrderResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -79,12 +76,20 @@ public class OrderService {
     }
 
     @Transactional
-    public Orders cancelOrder(OrderRequestDto.cancelOrderDto request) {
+    public Orders changeOrder(OrderRequestDto.changeOrderDto request) {
         Long orderId = request.getOrderId();
         Orders order = orderRepository.findById(orderId).orElseThrow(() -> new OrderHandler(ErrorStatus._ORDER_NOT_FOUND));
-        order.cancelOrder(); //더티 체킹
+        order.changeOrderStatus(request.getOrderStatus()); //더티 체킹
         return order;
     }
+
+    @Transactional(readOnly = true)
+    public Orders  getOrder(Long orderId) {
+         return orderRepository.findById(orderId).orElseThrow(() -> new OrderHandler(ErrorStatus._ORDER_NOT_FOUND));
+
+    }
+
+
 
 
 

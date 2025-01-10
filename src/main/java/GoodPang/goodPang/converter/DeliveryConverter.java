@@ -2,6 +2,7 @@ package GoodPang.goodPang.converter;
 
 import GoodPang.goodPang.domain.enums.DeliveryStatus;
 import GoodPang.goodPang.domain.order.Delivery;
+import GoodPang.goodPang.web.dto.DeliveryResponseDto;
 import GoodPang.goodPang.web.dto.OrderRequestDto;
 
 public class DeliveryConverter {
@@ -10,5 +11,16 @@ public class DeliveryConverter {
                 .address(request.getAddress())
                 .status(DeliveryStatus.READY)
                 .build();
+    }
+
+
+    public static DeliveryResponseDto.DeliveryDto toDeliveryDto(Delivery delivery) {
+        return DeliveryResponseDto.DeliveryDto
+                .builder()
+                .deliveryId(delivery.getId())
+                .status(delivery.getStatus())
+                .address(delivery.getAddress())
+                .build();
+
     }
 }

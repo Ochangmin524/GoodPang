@@ -43,10 +43,11 @@ public class Orders extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [ORDER,CANCEL]
 
-
-    public void cancelOrder() {
-        this.status = OrderStatus.CANCEL;
+    public void changeOrderStatus(OrderStatus status) {
+        this.status = status;
     }
+
+
 
     public void addOrderItems(OrderItem orderItem) {
         this.orderItems.add(orderItem);
