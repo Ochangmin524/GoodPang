@@ -38,4 +38,12 @@ public class CartItemResponseDto {
         Integer quantity;
 
     }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeleteCartItemResultDto {
+        Long cartItemId; //삭제한 장바구니 상품의 아이디
+
+    }
 }

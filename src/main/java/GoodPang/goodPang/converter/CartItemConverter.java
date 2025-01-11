@@ -11,6 +11,12 @@ import java.util.stream.Collectors;
 
 public class CartItemConverter {
 
+    public static CartItemResponseDto.DeleteCartItemResultDto toDeleteCartItemResult(Long cartItemId) {
+        return CartItemResponseDto.DeleteCartItemResultDto.builder()
+                .cartItemId(cartItemId)
+                .build();
+    }
+
     public static CartItemResponseDto.GetCartItemResultDto getCartItemResultDto(List<CartItem> cartItemList) {
         return CartItemResponseDto.GetCartItemResultDto
                 .builder()

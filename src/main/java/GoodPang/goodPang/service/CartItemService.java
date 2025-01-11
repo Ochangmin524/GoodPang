@@ -6,6 +6,7 @@ import GoodPang.goodPang.domain.cart.CartItem;
 import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.repository.CartItemRepository;
+import GoodPang.goodPang.repository.CartRepository;
 import GoodPang.goodPang.repository.ItemRepository;
 
 import GoodPang.goodPang.repository.MemberRepository;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
@@ -26,6 +29,7 @@ public class CartItemService {
     private final MemberRepository memberRepository;
     private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
+    private final CartRepository cartRepository;
 
     @Transactional
     public CartItem addCartItem(CartItemRequestDto.AddCartItem request) {
@@ -72,5 +76,13 @@ public class CartItemService {
     public List<CartItem> findCartItemByMemberId(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
         return member.getCart().getCarts();
+    }
+
+    @Transactional
+    public Long deleteCartItem(CartItemRequestDto.DeleteCartItem request) {
+        CartItem cartItem = cartItemRepository.findById(request.getCartItemId()).orElseThrow(() -> new CartHandler(ErrorStatus._CART_ITEM_NOT_FOUND));
+        Cart cart = cartRepository.findById(request.getCartId()).orElseThrow(() -> new CartHandler(ErrorStatus._CART_NOT_FOUND));
+        cart.getCarts().remove(cartItem); //orphanRemoval 로 자동으로 db에서 제거된다.
+        return cartItem.getId();//삭제된 장바구니 상품의 아이디 반환
     }
 }

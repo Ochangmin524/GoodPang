@@ -30,7 +30,8 @@ public enum ErrorStatus implements BaseErrorCode{
 
     //장바구니 관련 에러
     _CART_ITEM_NOT_FOUND(HttpStatus.BAD_REQUEST, "CART_ITEM001", "장바구니에 존재하지 않습니다."),
-    _OVER_ITEM_STOCK(HttpStatus.BAD_REQUEST,"CART_ITEM_002", "상품 제고보다 많은 수량입니다.");
+    _OVER_ITEM_STOCK(HttpStatus.BAD_REQUEST,"CART_ITEM_002", "상품 제고보다 많은 수량입니다."),
+    _CART_NOT_FOUND(HttpStatus.BAD_REQUEST, "CART_001", "존재하지 않는 장바구니입니다.");
 
 
     private final HttpStatus httpStatus;
