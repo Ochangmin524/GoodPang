@@ -24,6 +24,8 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
 
     public final GoodPang.goodPang.domain.base.QBaseEntity _super = new GoodPang.goodPang.domain.base.QBaseEntity(this);
 
+    public final EnumPath<GoodPang.goodPang.domain.enums.Category> category = createEnum("category", GoodPang.goodPang.domain.enums.Category.class);
+
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
     //inherited
@@ -31,7 +33,13 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath information = createString("information");
+
     public final GoodPang.goodPang.domain.item.QItem item;
+
+    public final StringPath itemName = createString("itemName");
+
+    public final NumberPath<Integer> itemPrice = createNumber("itemPrice", Integer.class);
 
     public final QOrders order;
 
