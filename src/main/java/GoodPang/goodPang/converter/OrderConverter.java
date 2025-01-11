@@ -27,6 +27,15 @@ public class OrderConverter {
     }
 
     private static OrderResponseDto.orderItemDto toOrderItemDto(OrderItem orderItem) {
+        if (orderItem.getItem() == null) {
+            return  OrderResponseDto.orderItemDto.builder()
+                    .itemId(0L) //삭제된 상품은 0의 id를 가진다고 하자
+                    .orderItemId(orderItem.getId())
+                    .orderPrice(orderItem.getOrderPrice())
+                    .count(orderItem.getCount())
+                    .build();
+        }
+
         return OrderResponseDto.orderItemDto.builder()
                 .itemId(orderItem.getItem().getId())
                 .orderItemId(orderItem.getId())
