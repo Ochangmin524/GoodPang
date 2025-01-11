@@ -29,4 +29,9 @@ public class CartRestController {
     public ApiResponse<CartItemResponseDto.GetCartItemResultDto> getCartItemList(@PathVariable("memberId") Long memberId) {
         return ApiResponse.onSuccess(CartItemConverter.getCartItemResultDto(cartItemService.findCartItemByMemberId(memberId)));
     }
+    //장바구니 상품 삭제
+    @DeleteMapping("carts")
+    public ApiResponse<CartItemResponseDto.DeleteCartItemResultDto> deleteCartItem(@RequestBody CartItemRequestDto.DeleteCartItem request) {
+        return ApiResponse.onSuccess(CartItemConverter.toDeleteCartItemResult(cartItemService.deleteCartItem(request)));
+    }
 }

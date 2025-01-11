@@ -12,6 +12,12 @@ public class CartItemRequestDto {
         Long itemId; //장바구니에 넣을 상품 id
         Integer count; //상품 개수
     }
+    @Getter
+    @Setter
+    public static class DeleteCartItem{
+        Long cartId;//샂제할 장바구니 상품의 장바구니 아이디
+        Long cartItemId; //삭제할 장바구니 상품의 아이디
+    }
 
 
 }
