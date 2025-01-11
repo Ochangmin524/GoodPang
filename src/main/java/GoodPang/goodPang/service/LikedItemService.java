@@ -43,10 +43,9 @@ public class LikedItemService {
         Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
         LikedItem likedItem = likedItemRepository.findById(request.getLikedItemId()).orElseThrow(() -> new LikedItemHandler(ErrorStatus._LIKED_ITEM_NOT_FOUND));
         Item item = itemRepository.findById(likedItem.getItem().getId()).orElseThrow(() -> new ItemHandler(ErrorStatus._ITEM_NOT_FOUND));
-        likedItemRepository.delete(likedItem); // DB에서 삭제
-        item.minusLikes(1); //좋아요 수 감소
 
-        member.getLikedItems().remove(likedItem); // 자동으로 지워지려나..?
+        item.minusLikes(1); //좋아요 수 감소
+        member.getLikedItems().remove(likedItem); // orphanRemoval 로 자동으로 db 에서 likeItem 삭제된다.
         return likedItem.getId();
 
     }

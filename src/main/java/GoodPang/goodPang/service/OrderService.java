@@ -59,7 +59,7 @@ public class OrderService {
             //아이템 제고 수량 빼기
             item.removeCount(cartItem.getCount());
             //장바구니에서 장바구니 상품 제거
-            member.getCart().removeCartItem(cartItem);
+            member.getCart().getCarts().remove(cartItem);
             orderItemRepository.save(orderItem); //orderitem 저장
             //장바구니 상품은 더티 체킹으로 사라질 것.
         }
