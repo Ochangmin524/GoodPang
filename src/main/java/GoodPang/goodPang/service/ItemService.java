@@ -3,6 +3,7 @@ package GoodPang.goodPang.service;
 import GoodPang.goodPang.converter.ItemConverter;
 import GoodPang.goodPang.domain.cart.Cart;
 import GoodPang.goodPang.domain.cart.CartItem;
+import GoodPang.goodPang.domain.enums.Category;
 import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.item.LikedItem;
 import GoodPang.goodPang.domain.member.Member;
@@ -65,12 +66,17 @@ public class ItemService {
         return itemId;
     }
 
+    @Transactional(readOnly = true)
+    public List<Item> searchItems(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Integer page) {
+        List<Item> itemsByCriteria = itemRepository.findItemsByCriteria(category, minPrice, maxPrice, minLikes, sortBy, page);
+        return itemsByCriteria;
+
+    }
 
     @Transactional
     public Item addItem(ItemRequestDto.AddItemDto request) {
         //상품 생성
         Item item = ItemConverter.toItem(request);
-
         //상품 저장
         return itemRepository.save(item);
     }

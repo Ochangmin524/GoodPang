@@ -13,7 +13,7 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 10
-  #        dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
 
   data:
     web:
@@ -22,10 +22,11 @@ spring:
   tymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+
+
 logging.level:
   org.hibernate.SQL: debug
-  org.hibernate.type: trace
-
+  org.hibernate.orm.jdbc.bind: trace
 server:
   servlet:
     session:
