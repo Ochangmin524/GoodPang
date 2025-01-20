@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class LikedItemRestController {
     private final LikedItemService likedItemService;
 

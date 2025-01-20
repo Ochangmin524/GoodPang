@@ -10,6 +10,7 @@ import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
 import GoodPang.goodPang.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,8 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final CartRepository cartRepository;
+    //config 에서 설정했던 BCryptPa....는 passwordEncoder 인터페이스의 구현체이다.
+    private final PasswordEncoder passwordEncode;
 
     //멤버 회원 가입
     @Transactional
@@ -31,7 +34,7 @@ public class MemberService {
         }
         //멤버 생성
         Member member = MemberConverter.toMember(request);
-
+        member.encodePassword(passwordEncode.encode(request.getPassword()));
         //장바구니 생성
         Cart cart = CartConverter.toCart(member);
 
