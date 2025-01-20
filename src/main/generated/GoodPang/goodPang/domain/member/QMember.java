@@ -45,6 +45,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath password = createString("password");
 
+    public final EnumPath<GoodPang.goodPang.domain.enums.MemberRole> role = createEnum("role", GoodPang.goodPang.domain.enums.MemberRole.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 

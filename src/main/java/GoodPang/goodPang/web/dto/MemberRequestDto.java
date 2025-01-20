@@ -2,6 +2,7 @@ package GoodPang.goodPang.web.dto;
 
 import GoodPang.goodPang.domain.member.Address;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +10,13 @@ public class MemberRequestDto {
     @Getter
     @Setter
     public static class JoinDto {
+        @NotNull
         String name;
+        @NotNull
         Address address;
+        @NotNull
         String loginId;
+        @NotNull
         String password;
 
     }

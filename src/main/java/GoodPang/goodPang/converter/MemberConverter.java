@@ -1,5 +1,6 @@
 package GoodPang.goodPang.converter;
 
+import GoodPang.goodPang.domain.enums.MemberRole;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.web.dto.MemberRequestDto;
 import GoodPang.goodPang.web.dto.MemberResponseDto;
@@ -59,6 +60,7 @@ public class MemberConverter {
                 .password(request.getPassword())
                 .likedItems(new ArrayList<>())
                 .orders(new ArrayList<>())
+                .role(MemberRole.USER)
                 .build();
     }
 

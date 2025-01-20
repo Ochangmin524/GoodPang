@@ -2,6 +2,7 @@ package GoodPang.goodPang.domain.member;
 
 import GoodPang.goodPang.domain.base.BaseEntity;
 import GoodPang.goodPang.domain.cart.Cart;
+import GoodPang.goodPang.domain.enums.MemberRole;
 import GoodPang.goodPang.domain.images.MemberImage;
 import GoodPang.goodPang.domain.item.LikedItem;
 import GoodPang.goodPang.domain.order.Orders;
@@ -39,6 +40,10 @@ public class Member extends BaseEntity {
     private String loginId;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
+
+
     //cascade로, member가 지워지면 자동으로 삭제, orphan으로 like리스트에서 사라지면 자동으로 db에서 like 삭제
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LikedItem> likedItems = new ArrayList<>();
@@ -58,4 +63,5 @@ public class Member extends BaseEntity {
     public void addLikedItem(LikedItem likedItem) {
         this.likedItems.add(likedItem);
     }
+    public void encodePassword(String password) {this.password = password;}
 }
