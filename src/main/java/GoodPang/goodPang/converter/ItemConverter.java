@@ -5,14 +5,19 @@ import GoodPang.goodPang.domain.item.Album;
 import GoodPang.goodPang.domain.item.Book;
 import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.item.Movie;
-import GoodPang.goodPang.web.dto.ItemRequestDto;
-import GoodPang.goodPang.web.dto.ItemResponseDto;
+import GoodPang.goodPang.api.dto.ItemRequestDto;
+import GoodPang.goodPang.api.dto.ItemResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemConverter {
+
+
+
+
+
 
     public static ItemResponseDto.DeleteResultDto toDeleteResultDto(Long itemId) {
         return ItemResponseDto.DeleteResultDto.builder()

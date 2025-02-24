@@ -1,0 +1,136 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
+    <meta content="Hugo 0.122.0" name="generator">
+    <title>Checkout example · Bootstrap v5.3</title>
+
+    <link href="https://getbootstrap.com/docs/5.3/examples/checkout/" rel="canonical">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
+    <link href="checkout.css" rel="stylesheet">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<header th:replace="fragments/bootHeader :: header"></header>
+<body class="bg-body-tertiary">
+
+<div class="container mt-4">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Checkout form</h2>
+            <p class="lead">Atttempting to submit the form without completing it.</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Your cart</span>
+                    <span class="badge bg-primary rounded-pill" th:text="${cartItems.numOfCartItems}">3</span>
+                </h4>
+
+                <ul class="list-group" th:each="cartItem : ${cartItems.cartItems}">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div class="w-75">
+                            <h6 class="my-0" th:text="${cartItem.itemName}">Product name</h6>
+                            <small class="text-body-secondary">Item ID: <span
+                                    th:text="${cartItem.itemId}">123</span></small>
+                        </div>
+                        <div class="w-25 text-end">
+                            <span class="text-body-secondary"
+                                  th:text="${#numbers.formatDecimal(cartItem.price, 0, 'COMMA', 0, 'POINT')}">price</span><br>
+                            <small class="text-body-secondary" th:text="${'주문 수량 ' + cartItem.quantity}">수량</small>
+                        </div>
+                    </li>
+                </ul>
+
+                <li class="list-group-item d-flex justify-content-between mt-3">
+                    <span>Total (KRW)</span>
+                    <strong th:text="${'₩'+ #numbers.formatDecimal(totalPrice , 0, 'COMMA', 0, 'POINT')}">$20</strong>
+                </li>
+
+                <form class="card p-2">
+                    <div class="input-group">
+                        <button class="btn btn-outline-dark flex-shrink-0" formaction="/cart" formmethod="GET"
+                                type="submit">장바구니로 돌아가기
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3">Billing address</h4>
+                <form method="post" role="form" th:action="@{'createOrder'}" th:object="${addressForm}">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label" for="Username">Username</label>
+                            <input class="form-control" id="Username" readonly th:placeholder="${member.memberName}"
+                                   th:value="${member.memberName}" type="text">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="email">Email <span
+                                    class="text-body-secondary">(Optional)</span></label>
+                            <input class="form-control" id="email" placeholder="you@example.com" type="email">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address for shipping updates.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="ZipCode">ZipCode <span
+                                    class="text-body-secondary">(Optional)</span></label>
+                            <input class="form-control" id="ZipCode" name="zipcode" placeholder="Apartment or suite"
+                                   th:value="${member != null && member.address != null ? member.address.zipcode : ''}"
+                                   type="text">
+                        </div>
+
+                        <div class="col-md-8">
+                            <label class="form-label" for="city">City</label>
+                            <input class="form-control" id="city" name="city" placeholder="city"
+                                   th:value="${member != null && member.address != null ? member.address.city : ''}"
+                                   type="text">
+                            <div class="invalid-feedback">
+                                Please select a valid city.
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label" for="street">Street</label>
+                            <input class="form-control" id="street" name="street" placeholder="street"
+                                   th:value="${member != null && member.address != null ? member.address.street : ''}"
+                                   type="text">
+                            <div class="invalid-feedback">
+                                Please provide a valid street.
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-100 btn btn-primary btn-lg mt-5" type="submit">구매하기</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</div>
+<footer class="py-5 bg-dark mt-5">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</html>

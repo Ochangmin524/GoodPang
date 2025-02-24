@@ -11,7 +11,7 @@ import GoodPang.goodPang.response.exception.handler.ItemHandler;
 import GoodPang.goodPang.response.exception.handler.LikedItemHandler;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
-import GoodPang.goodPang.web.dto.LikedItemRequestDto;
+import GoodPang.goodPang.api.dto.LikedItemRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

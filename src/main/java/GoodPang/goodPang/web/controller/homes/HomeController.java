@@ -11,9 +11,10 @@ public class HomeController {
         return "members/login";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
+    @GetMapping("/loginHome")
+    public String home(Model model) {
+
+        return "redirect:/items/search";
     }
 
     }

@@ -2,8 +2,8 @@ package GoodPang.goodPang.converter;
 
 import GoodPang.goodPang.domain.enums.DeliveryStatus;
 import GoodPang.goodPang.domain.order.Delivery;
-import GoodPang.goodPang.web.dto.DeliveryResponseDto;
-import GoodPang.goodPang.web.dto.OrderRequestDto;
+import GoodPang.goodPang.api.dto.DeliveryResponseDto;
+import GoodPang.goodPang.api.dto.OrderRequestDto;
 
 public class DeliveryConverter {
     public static Delivery toDelivery(OrderRequestDto.createOrderDto request) {

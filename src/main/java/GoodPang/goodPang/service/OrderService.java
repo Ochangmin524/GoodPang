@@ -1,5 +1,6 @@
 package GoodPang.goodPang.service;
 
+import GoodPang.goodPang.api.dto.MemberResponseDto;
 import GoodPang.goodPang.converter.DeliveryConverter;
 import GoodPang.goodPang.converter.OrderConverter;
 import GoodPang.goodPang.domain.cart.CartItem;
@@ -14,11 +15,13 @@ import GoodPang.goodPang.response.exception.handler.ItemHandler;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.exception.handler.OrderHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
-import GoodPang.goodPang.web.dto.OrderRequestDto;
-import GoodPang.goodPang.web.dto.OrderResponseDto;
+import GoodPang.goodPang.api.dto.OrderRequestDto;
+import GoodPang.goodPang.web.webDto.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -30,6 +33,7 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final OrderItemRepository orderItemRepository;
     private final DeliveryRepository deliveryRepository;
+    private final MemberService memberService;
 
     //한번에 결제할 장바구니 상품들의 리스트가 입력된다.
     @Transactional
@@ -90,7 +94,16 @@ public class OrderService {
     }
 
 
+    @Transactional(readOnly = true)
+    public OrderResponse.OrderListDto getOrderLists() {
+        MemberResponseDto.GetMemberResultDTO memberDtoByLoginId = memberService.getMemberDtoByLoginId();
+        Member member = memberRepository.findById(memberDtoByLoginId.getMemberId()).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+        List<Orders> ordersByMember = orderRepository.getOrdersByMember(member);
+        return OrderConverter.toOrderResultDto(ordersByMember);
 
+
+
+    }
 
 
 }

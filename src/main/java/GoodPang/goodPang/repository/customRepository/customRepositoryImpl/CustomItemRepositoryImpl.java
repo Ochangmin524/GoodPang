@@ -8,7 +8,8 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,10 +19,27 @@ import java.util.List;
 public class CustomItemRepositoryImpl implements CustomItemRepository {
     private final JPAQueryFactory jpaQueryFactory; //쿼리 자동생성
     private final QItem item = QItem.item;
-    private final int pageSize = 9;
+
+
+
+
 
     @Override
-    public List<Item> findItemsByCriteria(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Integer page) {
+    public PageImpl<Item> findItemsPageByCriteria(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Pageable pageable) {
+        JPQLQuery<Item> query = getItemJPQLQuery(category, minPrice, maxPrice, minLikes, sortBy, pageable);
+        long total = query.fetchCount();
+        List<Item> items = query.fetch();
+        return new PageImpl<>(items, pageable, total);
+    }
+    @Override
+    public List<Item> findItemsListByCriteria(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Pageable pageable) {
+        JPQLQuery<Item> query = getItemJPQLQuery(category, minPrice, maxPrice, minLikes, sortBy, pageable);
+        return query.fetch();
+
+        }
+
+    //쿼리 생성 메소드
+    private JPQLQuery<Item> getItemJPQLQuery(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Pageable pageable) {
         BooleanBuilder predicate = new BooleanBuilder();
 
         //필터링 조건 추가
@@ -49,13 +67,10 @@ public class CustomItemRepositoryImpl implements CustomItemRepository {
             else if (sortBy.equals("최신순")) {query.orderBy(item.createdAt.desc());}
         }
 
-        // 페이징 설정
-        PageRequest pageable = PageRequest.of(page - 1, pageSize);
 
         //쿼리에 페이징 설정 추가
         query.offset(pageable.getOffset()).limit(pageable.getPageSize());
-
-        return query.fetch();
-
+        return query;
     }
+
 }
