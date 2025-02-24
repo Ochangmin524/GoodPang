@@ -2,11 +2,13 @@ package GoodPang.goodPang.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity//시큐리티 설정을 활성화한다. 우리가 작성한 설정이 기본 설정보다 우선 적용되게 한다.
 @Configuration //설정 정보 명시 에노테이션
@@ -19,9 +21,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(requests -> requests
                 //permitAll에 있는 곳은 항상 접근을 허용
                 .requestMatchers("/","/home/", "/login","/signup/**","/members/signup", "/css/**","/js/**","/fragments/**","https://getbootstrap.com/docs/**").permitAll()
-                //hasRole은 해당 역할을 가진 사용자만 접근이 가능
+                        //hasRole은 해당 역할을 가진 사용자만 접근이 가능
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                //authenticated은 인증된 사용자만 접근 가능
+                        .requestMatchers(HttpMethod.PATCH, "/api/updateCartItemQuantity").authenticated() // PATCH 요청 허용                    //authenticated은 인증된 사용자만 접근 가능
                 .anyRequest().authenticated()
         )
         // 폼 기반 로그인 설정
@@ -35,7 +37,9 @@ public class SecurityConfig {
                 .logoutUrl("/logout") //로그아웃 페이지를 /logout 경로로 설정
                 .logoutSuccessUrl("/login?logout") //로그아웃 성공시 /login?logout으로 리다이렉트
                 .permitAll()
-        );
+        )
+        .csrf(csrf -> csrf.disable()); // CSRF 보호 비활성화
+
 
         return http.build();
     }

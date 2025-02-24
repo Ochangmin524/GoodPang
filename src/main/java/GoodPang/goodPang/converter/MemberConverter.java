@@ -2,8 +2,8 @@ package GoodPang.goodPang.converter;
 
 import GoodPang.goodPang.domain.enums.MemberRole;
 import GoodPang.goodPang.domain.member.Member;
-import GoodPang.goodPang.web.dto.MemberRequestDto;
-import GoodPang.goodPang.web.dto.MemberResponseDto;
+import GoodPang.goodPang.api.dto.MemberRequestDto;
+import GoodPang.goodPang.api.dto.MemberResponseDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

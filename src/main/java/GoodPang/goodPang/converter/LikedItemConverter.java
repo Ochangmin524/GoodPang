@@ -3,7 +3,7 @@ package GoodPang.goodPang.converter;
 import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.item.LikedItem;
 import GoodPang.goodPang.domain.member.Member;
-import GoodPang.goodPang.web.dto.LikedItemResponseDto;
+import GoodPang.goodPang.api.dto.LikedItemResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,10 +1,12 @@
 package GoodPang.goodPang.converter;
 
 import GoodPang.goodPang.domain.enums.OrderStatus;
+import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.domain.order.OrderItem;
 import GoodPang.goodPang.domain.order.Orders;
-import GoodPang.goodPang.web.dto.OrderResponseDto;
+import GoodPang.goodPang.api.dto.OrderResponseDto;
+import GoodPang.goodPang.web.webDto.OrderResponse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,4 +69,30 @@ public class OrderConverter {
                 .build();
 
     }
+
+    public static OrderResponse.OrderListDto toOrderResultDto(List<Orders> orders) {
+        List<OrderResponse.OrderList> orderList = orders.stream().map(order -> toOrderList(order)).collect(Collectors.toList());
+        return OrderResponse.OrderListDto.builder()
+                .orderList(orderList).build();
+    }
+
+    private static OrderResponse.OrderList toOrderList(Orders order) {
+        List<OrderItem> orderItems = order.getOrderItems();
+        List<OrderResponse.OrderDetail> orderDetailList = orderItems.stream()
+                .map(orderItem -> toOrderDetail(orderItem, order)).collect(Collectors.toList());
+        return OrderResponse.OrderList.builder()
+                .orderDetailList(orderDetailList).build();
+    }
+
+    private static OrderResponse.OrderDetail toOrderDetail(OrderItem orderItem, Orders order) {
+        Item item = orderItem.getItem();
+        return OrderResponse.OrderDetail.builder()
+                .itemId(item.getId())
+                .name(item.getName())
+                .totalPrice(orderItem.getOrderPrice())
+                .count(orderItem.getCount())
+                .status(order.getStatus().name())
+                .orderDate(String.valueOf(order.getOrderDate())).build();
+    }
+
 }

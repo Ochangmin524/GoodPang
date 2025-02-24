@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Hello, world!</title>
+
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Thymeleaf CSS files (adjust paths as per your project structure) -->
+    <link th:href="@{/css/headers.css}" rel="stylesheet">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column h-100">
+<!-- Header -->
+<header th:replace="fragments/bootHeader :: header"></header>
+
+<!-- Main Content -->
+<main class="flex-shrink-0 my-5">
+    <div class="container d-flex flex-column align-items-center">
+        <!-- Navigation and Search Form -->
+        <div class="mb-3 d-flex justify-content-between align-items-center w-100">
+            <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/items(memberId=${memberId})}'|">
+                목록으로
+            </button>
+
+<!--            <form th:object="${orderSearch}" class="form-inline">-->
+<!--                <div class="input-group">-->
+<!--                    <input type="hidden" th:field="*{memberName}" class="form-control" placeholder="회원명">-->
+<!--                    <select th:field="*{orderStatus}" class="form-select">-->
+<!--                        <option value="">주문상태</option>-->
+<!--                        <option th:each="status : ${T(ShopProject.myShopProject.Domain.Order.OrderStatus).values()}"-->
+<!--                                th:value="${status}" th:text="${status}"></option>-->
+<!--                    </select>-->
+<!--                    <button type="submit" class="btn btn-primary">검색</button>-->
+<!--                </div>-->
+<!--            </form>-->
+        </div>
+
+        <!-- Orders Table -->
+        <div class="w-75">
+            <table class="table table-striped text-center">
+                <thead>
+                <tr>
+                    <th scope="col">상품 이름</th>
+                    <th scope="col">상품 주문 총 가격</th>
+                    <th scope="col">상품 주문 수량</th>
+                    <th scope="col">상태</th>
+                    <th scope="col">일시</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="orderList : ${orders.getOrderList()}">
+
+                    <th:block th:each="orderDetail : ${orderList.orderDetailList}">
+                        <td th:text="${orderDetail.name}"></td> <!-- 구매한 상품명 -->
+                        <td th:text="${orderDetail.totalPrice}"></td> <!-- 총가격 -->
+                        <td th:text="${orderDetail.count}"></td> <!-- 구매 수량 -->
+                        <td th:text="${orderDetail.status}"></td> <!-- 구매 상태 -->
+                        <td th:text="${orderDetail.orderDate}"></td> <!-- 구매 날짜 -->
+                        <td>
+                            <a th:if="${orderDetail.status == 'ORDER'}" href="#"
+                               th:href="'javascript:cancel('+${orderDetail.itemId}+')'" class="btn btn-danger">주문취소</a>
+                        </td>
+                    </th:block>
+                </tr>
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="py-5 bg-dark mt-auto">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+    </div>
+</footer>
+
+<!-- Bootstrap 5.3.0 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+    function cancel(id) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/orders/" + id + "/cancel");
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</body>
+
+</html>
+

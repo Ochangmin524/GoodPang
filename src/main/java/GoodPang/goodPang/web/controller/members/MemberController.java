@@ -2,7 +2,7 @@ package GoodPang.goodPang.web.controller.members;
 
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.service.MemberService;
-import GoodPang.goodPang.web.dto.MemberRequestDto;
+import GoodPang.goodPang.api.dto.MemberRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

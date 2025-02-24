@@ -14,13 +14,14 @@ import GoodPang.goodPang.response.exception.handler.CartHandler;
 import GoodPang.goodPang.response.exception.handler.ItemHandler;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
-import GoodPang.goodPang.web.dto.CartItemRequestDto;
+import GoodPang.goodPang.api.dto.CartItemRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -85,4 +86,37 @@ public class CartItemService {
         cart.getCarts().remove(cartItem); //orphanRemoval 로 자동으로 db에서 제거된다.
         return cartItem.getId();//삭제된 장바구니 상품의 아이디 반환
     }
+
+
+
+    //장바구니의 아이템의 재고 수량을 담아 리턴
+    @Transactional(readOnly = true)
+    public List<Integer> getStockQuantity(List<CartItem> cartItems) {
+        List<Integer> stockQuantity = new ArrayList<>();
+        for (CartItem cartItem : cartItems) {
+            Item item = itemRepository.findById(cartItem.getItem().getId()).orElseThrow(() -> new ItemHandler(ErrorStatus._ITEM_NOT_FOUND));
+            stockQuantity.add(item.getStockQuantity());
+        }
+        return stockQuantity;
+    }
+
+    @Transactional
+    public CartItem updateCartItemQuantity(Long CartItemId, Integer count) {
+        CartItem cartItem = cartItemRepository.findById(CartItemId).orElseThrow(() -> new CartHandler(ErrorStatus._CART_ITEM_NOT_FOUND));
+        cartItem.updateCount(count);
+        return cartItem;
+    }
+
+    @Transactional(readOnly = true)
+    public Integer getTotalPrice(List<CartItem> cartItems) {
+        return cartItems.stream()
+                .mapToInt(cartItem -> cartItem.getItem().getPrice() * cartItem.getCount())
+                .sum();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> getCartItemIds(List<CartItem> cartItems) {
+        return cartItems.stream().map(CartItem::getId).collect(Collectors.toList());
+    }
+
 }

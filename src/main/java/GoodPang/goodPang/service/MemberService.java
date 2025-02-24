@@ -1,15 +1,21 @@
 package GoodPang.goodPang.service;
 
+import GoodPang.goodPang.api.dto.MemberResponseDto;
 import GoodPang.goodPang.converter.CartConverter;
 import GoodPang.goodPang.converter.MemberConverter;
 import GoodPang.goodPang.domain.cart.Cart;
+import GoodPang.goodPang.domain.item.Item;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.repository.CartRepository;
+import GoodPang.goodPang.repository.ItemRepository;
+import GoodPang.goodPang.repository.LikedItemRepository;
 import GoodPang.goodPang.repository.MemberRepository;
 import GoodPang.goodPang.response.exception.handler.MemberHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
-import GoodPang.goodPang.web.dto.MemberRequestDto;
+import GoodPang.goodPang.api.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +30,9 @@ public class MemberService {
     private final CartRepository cartRepository;
     //config 에서 설정했던 BCryptPa....는 passwordEncoder 인터페이스의 구현체이다.
     private final PasswordEncoder passwordEncode;
+    private final MemberService memberService;
+    private final LikedItemRepository likedItemRepository;
+    private final ItemRepository itemRepository;
 
     //멤버 회원 가입
     @Transactional
@@ -76,5 +85,20 @@ public class MemberService {
     @Transactional(readOnly = true)
     public List<Member> getMembers() {
         return memberRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public MemberResponseDto.GetMemberResultDTO getMemberDtoByLoginId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = memberRepository.findByLoginId(authentication.getName()).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+        return MemberConverter.toGetMemberResponseDto(member);
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean getIsLiked(Long itemId) {
+        MemberResponseDto.GetMemberResultDTO memberDtoByLoginId = memberService.getMemberDtoByLoginId();
+        Member member = memberRepository.findById(memberDtoByLoginId.getMemberId()).orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FOUND));
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ItemHandler(ErrorStatus._ITEM_NOT_FOUND));
+        return likedItemRepository.existsByMemberAndItem(member, item);
     }
 }

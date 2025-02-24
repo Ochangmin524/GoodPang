@@ -1,20 +1,17 @@
 package GoodPang.goodPang.service;
 
 import GoodPang.goodPang.converter.ItemConverter;
-import GoodPang.goodPang.domain.cart.Cart;
-import GoodPang.goodPang.domain.cart.CartItem;
 import GoodPang.goodPang.domain.enums.Category;
 import GoodPang.goodPang.domain.item.Item;
-import GoodPang.goodPang.domain.item.LikedItem;
 import GoodPang.goodPang.domain.member.Member;
 import GoodPang.goodPang.domain.order.OrderItem;
-import GoodPang.goodPang.domain.order.Orders;
 import GoodPang.goodPang.repository.*;
 import GoodPang.goodPang.response.exception.handler.ItemHandler;
 import GoodPang.goodPang.response.fail.ErrorStatus;
-import GoodPang.goodPang.web.dto.ItemRequestDto;
-import ch.qos.logback.core.joran.conditional.IfAction;
+import GoodPang.goodPang.api.dto.ItemRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,9 +64,15 @@ public class ItemService {
     }
 
     @Transactional(readOnly = true)
-    public List<Item> searchItems(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Integer page) {
-        List<Item> itemsByCriteria = itemRepository.findItemsByCriteria(category, minPrice, maxPrice, minLikes, sortBy, page);
-        return itemsByCriteria;
+    public List<Item> searchItemsList(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Pageable pageable) {
+        List<Item> itemsListByCriteria = itemRepository.findItemsListByCriteria(category, minPrice, maxPrice, minLikes, sortBy, pageable);
+        return itemsListByCriteria;
+
+    }
+    @Transactional(readOnly = true)
+    public Page<Item> searchItemsPage(Category category, Integer minPrice, Integer maxPrice, Integer minLikes, String sortBy, Pageable pageable) {
+        Page<Item> itemsPageByCriteria = itemRepository.findItemsPageByCriteria(category, minPrice, maxPrice, minLikes, sortBy, pageable);
+        return itemsPageByCriteria;
 
     }
 

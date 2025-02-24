@@ -1,10 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/goodPang
+    url: jdbc:mysql://localhost:3306/goodpang
+
     username: "root"
     password: "0000"
-
+  mvc:
+    hidden method:
+      filter:
+        enabled: true
 
   jpa:
     hibernate:
